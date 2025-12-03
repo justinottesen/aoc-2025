@@ -1,1 +1,5 @@
 /target
+
+# Only commit example inputs
+/inputs/*
+!/inputs/*example*
