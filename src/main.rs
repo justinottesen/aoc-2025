@@ -1,7 +1,7 @@
 use std::env;
 
 fn main() {
-    let usage = "Usage: aoc-2025 <day> [part]";
+    let usage = "Usage: aoc-2025 <day> <part> <input_path>";
 
     let mut args = env::args();
 
@@ -19,9 +19,9 @@ fn main() {
         .parse()
         .expect("part must be a number");
 
-    println!("Executing with day={day}, part={part}");
+    let input_path: String = args.next().expect(usage);
 
-    match (day, part) {
-        _ => println!("Invalid day / part provided"),
-    }
+    println!("Executing with day={day}, part={part}, input_path={input_path}");
+
+    aoc_2025::run(day, part, input_path);
 }
