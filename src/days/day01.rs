@@ -5,7 +5,7 @@ use std::{
 
 use crate::Part;
 
-pub fn run(input_path: String, part: Part) {
+pub fn run(input_path: &str, part: Part) {
     let file = File::open(input_path).expect("Unable to open file");
 
     let reader = BufReader::new(file);
