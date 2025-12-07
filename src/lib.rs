@@ -14,6 +14,7 @@ pub fn run(day: u8, part: u8, input_path: String) {
         2 => Some(days::day02::run),
         3 => Some(days::day03::run),
         4 => Some(days::day04::run),
+        5 => Some(days::day05::run),
         _ => None,
     };
 
