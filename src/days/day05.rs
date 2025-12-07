@@ -18,13 +18,23 @@ pub fn run(input_path: &str, part: Part) {
 
     let mut ranges: Vec<(u64, u64)> = Vec::new();
 
-    let mut answer = 0;
+    let mut answer: u64 = 0;
     for line_result in reader.lines() {
         let line_str = line_result.expect("Unable to unwrap line");
         let line_str = line_str.trim();
         if line_str.is_empty() {
             input_section = InputSection::Id;
-            continue;
+            simplify_ranges(&mut ranges);
+
+            match part {
+                Part::One => continue,
+                Part::Two => {
+                    for (low, high) in &ranges {
+                        answer += high - low + 1;
+                    }
+                    break;
+                }
+            }
         }
 
         match input_section {
@@ -55,4 +65,22 @@ pub fn run(input_path: &str, part: Part) {
     }
 
     println!("Answer: {answer}");
+}
+
+fn simplify_ranges(ranges: &mut Vec<(u64, u64)>) {
+    ranges.sort();
+    let mut out: Vec<(u64, u64)> = Vec::new();
+    for (low, high) in ranges.iter() {
+        if out.len() == 0 {
+            out.push((*low, *high));
+        } else {
+            let last = out.last_mut().unwrap();
+            if *low <= last.1 {
+                *last = (last.0, std::cmp::max(last.1, *high));
+            } else {
+                out.push((*low, *high));
+            }
+        }
+    }
+    *ranges = out;
 }
